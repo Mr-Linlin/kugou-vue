@@ -1,13 +1,22 @@
 <template>
   <div id="app">
-    <router-link to="/category">分类</router-link>
-    <router-link to="/home">首页</router-link>
-    <router-link to="/profile">我的</router-link>
-    <router-link to="/focus">关注</router-link>
-    <router-view/>
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+    <main-tar-bar />
   </div>
 </template>
-
+<script>
+import MainTarBar from "@/components/context/mainbar/MainTarBar";
+export default {
+  name: "App",
+  components: {
+    MainTarBar,
+  },
+};
+</script>
 <style scoped>
-  @import url('./assets/css/base.css');
+@import url("./assets/css/base.css");
 </style>
