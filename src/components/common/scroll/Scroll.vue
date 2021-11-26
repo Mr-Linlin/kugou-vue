@@ -34,6 +34,14 @@ export default {
         pullUpLoad: this.pullUpLoad,
       });
     },
+    // 获取当前距离顶部的距离
+    getScrollY() {
+      return this.scroll ? this.scroll.y : 0;
+    },
+    // 返回指定的距离
+    scrollTop(x, y, time = 500) {
+      this.scroll.scrollTo(x, y, time);
+    },
   },
   props: {
     pullUpLoad: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="view-item" ref="vitem">
+  <div class="view-item" ref="vitem" @click="btnRouter()">
     <div class="item-icon">
       <img :src="ball.iconUrl" alt="" />
     </div>
@@ -17,6 +17,11 @@ export default {
     },
   },
   methods:{
+    // 点击进入对应的路由地址
+    btnRouter(){
+     let path= this.ball.url.split('/')
+     console.log('/'+path[2]);
+    }
   }
 };
 </script>
@@ -28,7 +33,7 @@ export default {
   font-size: 1vw;
 }
 .item-icon img {
-  background: rgb(255, 245, 244);
+  background: rgb(252, 82, 79);
   width: 100%;
   height: 100%;
   border-radius: 50%;

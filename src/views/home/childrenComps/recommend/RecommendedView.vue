@@ -98,6 +98,7 @@ export default {
 .recommended-view {
   overflow: hidden;
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 .recommended-view-item {
   display: flex;
