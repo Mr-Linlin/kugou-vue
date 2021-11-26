@@ -12,8 +12,8 @@ export default {
     },
     // 获取播放按钮的状态，当用户点击时取反
     musicActive(state, payload) {
-        // state.song.isPlay = !payload
-        // console.log('改变后的状态' + state.song.isPlay);
+        state.song.isPlay = !payload
+            // console.log('改变后的状态' + state.song.isPlay);
     },
     // 实时获取当前播放秒数
     setCurrentTime(state, plyload) {

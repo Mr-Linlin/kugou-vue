@@ -9,8 +9,8 @@
           <div class="strip-active" ref="stripActive"></div>
           <div class="strip-circle" ref="circle"></div>
         </div>
-        <span class="duration-time">{{ getDuration }}</span>
       </div>
+      <span class="duration-time">{{ getDuration }}</span>
     </div>
     <!-- 播放栏 -->
     <div class="play-bar">
@@ -56,6 +56,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.stripWidth = this.$refs.strip.offsetWidth;
+      // console.log(this.stripWidth);
       this.audioPLay = this.$parent.$root.$el.children[1].children[2];
     });
   },
@@ -85,6 +86,7 @@ export default {
     playBar() {
       if (this.audioPLay !== null) {
         this.currentTime = this.audioPLay.currentTime;
+        this.$store.commit("setCurrentTime", this.currentTime);
         this.num = this.currentTime / this.durationTime;
         if (this.num > 1) {
           clearInterval(this.timer);
@@ -123,6 +125,13 @@ export default {
         return `${midden}:${time}`;
       }
     },
+  },
+  deactivated(){
+    console.log(11);
+  },
+  beforeUnmount() {
+    console.log('离开了嘛');
+    clearInterval(this.timer)
   },
 };
 </script>
@@ -193,7 +202,7 @@ export default {
   flex: 1;
   height: 4px;
   background: rgba(40, 22, 22, 0.3);
-  margin: 6px 15px;
+  margin: 6px 0px 6px 15px;
 }
 .strip-circle {
   position: absolute;
@@ -209,5 +218,10 @@ export default {
   height: 100%;
   width: 0;
   background: #fff;
+}
+.duration-time {
+  font-size: 12px;
+  color: #ccc;
+  margin-left: 15px;
 }
 </style>
