@@ -9,6 +9,7 @@ export default {
         state.song.author = payload.author
         state.song.name = payload.name
         state.song.dt = payload.dt
+        state.song.picUrl = payload.picUrl
     },
     // 获取播放按钮的状态，当用户点击时取反
     musicActive(state, payload) {

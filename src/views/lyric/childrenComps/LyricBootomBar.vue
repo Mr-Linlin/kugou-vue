@@ -1,5 +1,21 @@
 <template>
   <div class="bottom-bar" ref="bar">
+    <!-- 评论功能 -->
+    <div class="comment-bar">
+      <div class="com-item">
+        <img src="~@/assets/img/lyric/love.svg" alt="" />
+      </div>
+      <div class="com-item">
+        <img src="~@/assets/img/lyric/download.svg" alt="" />
+      </div>
+      <div class="com-item">
+        <img src="~@/assets/img/lyric/soud.svg" alt="" />
+      </div>
+      <div class="com-item" @click="commentClick(songs.id)">
+        <i>{{ getComments }}</i>
+        <img src="~@/assets/img/lyric/discuss.svg" alt="" />
+      </div>
+    </div>
     <!-- 进度条 -->
     <div class="progress-bar">
       <div class="bell"><img src="~@/assets/img/lyric/bell.svg" alt="" /></div>
@@ -51,17 +67,20 @@ export default {
   },
   created() {
     // 组件挂载就启动定时器
-    this.playClick();
+    this.playBar();
   },
   mounted() {
     this.$nextTick(() => {
-      this.stripWidth = this.$refs.strip.offsetWidth;
-      // console.log(this.stripWidth);
+      this.stripWidth = this.$refs.strip.offsetWidth - 30;
       this.audioPLay = this.$parent.$root.$el.children[1].children[2];
     });
   },
   props: {
     songs: {
+      type: Object,
+      default: {},
+    },
+    comments: {
       type: Object,
       default: {},
     },
@@ -73,7 +92,7 @@ export default {
       if (this.songs.isPlay) {
         if (this.audioPLay !== null) {
           this.audioPLay.play();
-          this.timer = setInterval(this.playBar, 1);
+          this.timer = setInterval(this.playBar, 10);
         }
       } else {
         if (this.audioPLay !== null) {
@@ -100,6 +119,14 @@ export default {
         }
       }
     },
+    // 点击进入评论页面
+    commentClick(id) {
+      console.log(id);
+      this.$router.push({
+        path: "/comments",
+        query: { id},
+      });
+    },
   },
   computed: {
     // 计算歌曲时长
@@ -125,13 +152,25 @@ export default {
         return `${midden}:${time}`;
       }
     },
+    // 计算评论数
+    getComments() {
+      let results = 0;
+      if (this.comments.total > 10000) {
+        results = parseInt(this.comments.total / 10000) + "w";
+        return results;
+      } else if (this.comments.total > 1000 && this.comments.total < 10000) {
+        results = 999 + "+";
+        return results;
+      }
+      return this.comments.total;
+    },
   },
-  deactivated(){
+  deactivated() {
     console.log(11);
   },
   beforeUnmount() {
-    console.log('离开了嘛');
-    clearInterval(this.timer)
+    // console.log("离开了嘛");
+    clearInterval(this.timer);
   },
 };
 </script>
@@ -186,7 +225,7 @@ export default {
 }
 .progress-bar {
   display: flex;
-  margin: 30px 15px;
+  margin: 20px 15px;
   height: 16px;
   line-height: 16px;
 }
@@ -223,5 +262,25 @@ export default {
   font-size: 12px;
   color: #ccc;
   margin-left: 15px;
+}
+.comment-bar {
+  display: flex;
+  margin-top: 25px;
+  padding-left: 10%;
+  height: 24px;
+}
+.comment-bar img {
+  width: 24px;
+  height: 24px;
+}
+.com-item {
+  position: relative;
+  flex: 1;
+}
+.com-item i {
+  position: absolute;
+  top: -4px;
+  left: 17px;
+  font-size: 12px;
 }
 </style>
