@@ -35,9 +35,9 @@ export default {
         PullUp: true,
       });
       // 当滑到最后一个时显示加载更多
-      this.scroll.on("pullingUp", () => {
-        this.$emit("loadMore", "加载更多");
-      });
+      // this.scroll.on("pullingUp", () => {
+      //   this.$emit("loadMore", "加载更多");
+      // });
     },
     // 获取当前距离顶部的距离
     getScrollY() {
